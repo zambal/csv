@@ -1,3 +1,3 @@
-# Csv
+# CSV
 
-** TODO: Add description **
+Simple CSV parser for Elixir 
