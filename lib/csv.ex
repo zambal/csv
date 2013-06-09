@@ -7,8 +7,8 @@ Example:
 
   CSV.parse csv, text_deliminator: ?', fields: [:name, :age, :hobby]
 
-  => [[name: \"mike\", age: \"35\", hobby: \"music\"],
-      [name: \"eric\", age: \"24\", hobby: \"fishing\"]] 
+  => {:ok, [[name: \"mike\", age: \"35\", hobby: \"music\"],
+      [name: \"eric\", age: \"24\", hobby: \"fishing\"]]} 
 """
 
   @moduledoc """
