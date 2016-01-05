@@ -35,11 +35,11 @@ Options: :field_deliminator - Specify the field deliminator character. (default:
 #{example1}
 """
 
-  def parse(csv, opts // []) do
+  def parse(csv, opts \\ []) do
     opts = Keyword.merge(def_opts, opts)
     {res, _} = Enum.reduce(String.split(csv, "\n"),
                            {[], 1},
-                           parse_line(&1, &2, opts))
+                           &parse_line(&1, &2, opts))
     if is_list(res) do
       {:ok, Enum.reverse(res)}
     else
@@ -49,13 +49,13 @@ Options: :field_deliminator - Specify the field deliminator character. (default:
 
   defp parse_line(line, {acc, lnum}, opts)
   when is_list(acc) do
-    if Regex.match?(%r/^\s*#{opts[:comment]}/, line)
+    if Regex.match?(~r/^\s*#{opts[:comment]}/, line)
        or line == ""
        or lnum <= opts[:skip_first_lines] do
          {acc, lnum + 1}
     else
-      row = String.split(line, list_to_binary([opts[:field_deliminator]]))
-      |> Enum.map(strip(&1, opts[:text_deliminator]))
+      row = String.split(line, List.to_string([opts[:field_deliminator]]))
+      |> Enum.map(&strip(&1, opts[:text_deliminator]))
       |> maybe_to_keywords(opts[:fields], lnum)
       if is_list(row) do
         {[row|acc], lnum + 1}
