@@ -1,5 +1,5 @@
 defmodule CSV do
-  
+
   example1 = """
 Example:
   csv = \"'mike', '35', 'music'\\n\" <>
@@ -8,7 +8,7 @@ Example:
   CSV.parse csv, text_deliminator: ?', fields: [:name, :age, :hobby]
 
   => {:ok, [[name: \"mike\", age: \"35\", hobby: \"music\"],
-      [name: \"eric\", age: \"24\", hobby: \"fishing\"]]} 
+      [name: \"eric\", age: \"24\", hobby: \"fishing\"]]}
 """
 
   @moduledoc """
@@ -22,13 +22,13 @@ are also supported by using the :fields option.
 
   @doc """
 Parses tabular text to a list of lists, or a list of keyword lists, depending on
-the specified options.  
+the specified options.
 
 Options: :field_deliminator - Specify the field deliminator character. (default: ?,)
          :text_deliminator - Specify the deliminator that encloses a value. (default: ?\")
-         :comment - Specify the character(s) that start a comment. (default: \"#\")  
+         :comment - Specify the character(s) that start a comment. (default: \"#\")
          :skip_first_lines - Skip first N lines. (default: 0)
-         :fields - Specify the fields that make up a row. 
+         :fields - Specify the fields that make up a row.
                    When a line with more or less fields than specified,
                    parsing is aborted (default: nil)
 
@@ -45,10 +45,10 @@ Options: :field_deliminator - Specify the field deliminator character. (default:
     else
       {:error, res}
     end
-  end    
+  end
 
   defp parse_line(line, {acc, lnum}, opts)
-  when is_list(acc) do                        
+  when is_list(acc) do
     if Regex.match?(%r/^\s*#{opts[:comment]}/, line)
        or line == ""
        or lnum <= opts[:skip_first_lines] do
@@ -104,4 +104,4 @@ Options: :field_deliminator - Specify the field deliminator character. (default:
      fields: nil]
   end
 end
-     
+
